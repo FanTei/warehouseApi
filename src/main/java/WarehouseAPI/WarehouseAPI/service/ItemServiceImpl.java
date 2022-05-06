@@ -51,6 +51,7 @@ public class ItemServiceImpl implements ItemService {
         if (itemToDelete != null) {
             List<ShowcasesItem> dependItems = showcasesItemService.getShowcasesItemsByDependItem(itemToDelete);
             showcasesItemService.deleteShowcasesItemsByDependItems(dependItems);
+
             itemRepository.delete(itemToDelete);
             return true;
         }

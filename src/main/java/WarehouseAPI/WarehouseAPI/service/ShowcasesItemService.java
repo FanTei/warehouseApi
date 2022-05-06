@@ -11,4 +11,6 @@ public interface ShowcasesItemService {
     void deleteShowcasesItemsByDependItems(List<ShowcasesItem> showcasesItems);
 
     List<ShowcasesItem> getShowcasesItemsByDependItem(Item item);
+
+
 }

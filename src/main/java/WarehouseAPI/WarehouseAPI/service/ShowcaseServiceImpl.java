@@ -1,5 +1,6 @@
 package WarehouseAPI.WarehouseAPI.service;
 
+import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
 import WarehouseAPI.WarehouseAPI.repository.ShowcaseRepository;
 import WarehouseAPI.WarehouseAPI.entity.Showcase;
 import org.springframework.beans.factory.annotation.Autowired;

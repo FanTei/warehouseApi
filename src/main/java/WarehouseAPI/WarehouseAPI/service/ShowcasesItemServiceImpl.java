@@ -1,9 +1,12 @@
 package WarehouseAPI.WarehouseAPI.service;
 
 import WarehouseAPI.WarehouseAPI.entity.Item;
+import WarehouseAPI.WarehouseAPI.entity.Showcase;
 import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
 import WarehouseAPI.WarehouseAPI.repository.ShowcaseItemRepository;
+import WarehouseAPI.WarehouseAPI.repository.ShowcaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +15,7 @@ import java.util.List;
 public class ShowcasesItemServiceImpl implements ShowcasesItemService {
     @Autowired
     ShowcaseItemRepository showcaseItemRepository;
+
 
     @Override
     public void deleteShowcasesItemsByDependItems(List<ShowcasesItem> showcasesItems) {

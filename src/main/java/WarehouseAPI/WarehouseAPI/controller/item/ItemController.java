@@ -3,11 +3,13 @@ package WarehouseAPI.WarehouseAPI.controller.item;
 import WarehouseAPI.WarehouseAPI.entity.Item;
 import WarehouseAPI.WarehouseAPI.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -27,50 +29,33 @@ public class ItemController {
     }
 
     @PostMapping(value = "/delete")
-    public ResponseEntity<?> delete(@RequestParam(required = true, defaultValue = "") Long id,
-                                    @RequestParam(required = true, defaultValue = "") String action,
-                                    Model model) {
-        final boolean isDelete = itemService.delete(id);
+    public ResponseEntity<String> delete(@RequestParam(required = true, defaultValue = "") Long id,
+                                         @RequestParam(required = true, defaultValue = "") String action,
+                                         Model model) {
+        final boolean isDelete = false;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "http://localhost:9090/");
         return isDelete
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(null, headers, HttpStatus.FOUND)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> create(@ModelAttribute("itemForm") Item item) {
         itemService.create(item);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "http://localhost:9090/");
+        return new ResponseEntity<>(null, headers, HttpStatus.FOUND);
     }
 
     @PostMapping("/update")
     public ResponseEntity<Item> update(@RequestParam(name = "itemId") Long itemId,
                                        @ModelAttribute Item item) {
         final boolean update = itemService.update(item, itemId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "http://localhost:9090/");
         return update
-                ? new ResponseEntity<>(HttpStatus.OK)
+                ? new ResponseEntity<>(null, headers, HttpStatus.FOUND)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-
-//    @PostMapping(value = "/delete")
-//    public String delete(@RequestParam(required = true, defaultValue = "") Long id,
-//                         @RequestParam(required = true, defaultValue = "") String action,
-//                         Model model) {
-//        if (action.equals("delete"))
-//            itemService.delete(id);
-//        return "redirect:/items";
-//    }
-//
-//    @PostMapping("/update")
-//    public String update(@RequestParam Long id, @RequestBody Item item) {
-//        final boolean update = itemService.update(item, id);
-//        return "redirect:/";
-//    }
-//}
-//    @GetMapping("/items")
-//    public ResponseEntity<?> itemList(Model model) {
-//        List<Item> items = itemService.readAll();
-//        return items != null && !items.isEmpty()
-//                ? new ResponseEntity<>(items, HttpStatus.OK)
-//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }

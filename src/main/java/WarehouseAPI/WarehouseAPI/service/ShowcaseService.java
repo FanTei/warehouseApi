@@ -1,6 +1,7 @@
 package WarehouseAPI.WarehouseAPI.service;
 
 import WarehouseAPI.WarehouseAPI.entity.Showcase;
+import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface ShowcaseService {
     boolean update(Showcase showcase, Long id);
 
     boolean delete(Long id);
+
 }
