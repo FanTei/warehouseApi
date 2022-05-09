@@ -27,8 +27,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public boolean addItemOnShowcase(Long showcaseId, Long itemId, int quantity) {
-        Item addedItem = itemRepository.findById(itemId).get();
-        Showcase showcase = showcaseRepository.findById(showcaseId).get();
+        Item addedItem = itemRepository.findById(itemId).orElse(null);
+        Showcase showcase = showcaseRepository.findById(showcaseId).orElse(null);
         if (addedItem != null && showcase != null) {
             List<ShowcasesItem> showcasesItems = showcase.getItems();
             int freePlace = getFreePlace(showcase);
@@ -46,11 +46,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public boolean removeItemFromShowcase(Long showcaseId, Long itemId) {
-        Showcase showcase = showcaseRepository.findById(showcaseId).get();
+        Showcase showcase = showcaseRepository.findById(showcaseId).orElse(null);
         if (showcase != null) {
             List<ShowcasesItem> showcasesItems = showcase.getItems();
             if (showcasesItems.size() > 0) {
-                ShowcasesItem showcasesItem = showcaseItemRepository.findById(itemId).get();
+                ShowcasesItem showcasesItem = showcaseItemRepository.findById(itemId).orElse(null);
                 if (showcasesItem == null)
                     return false;
                 showcasesItems.remove(showcasesItem);
@@ -65,7 +65,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public List<ShowcasesItem> getShowcasesItems(Long showcaseId) {
-        Showcase showcase = showcaseRepository.findById(showcaseId).get();
+        Showcase showcase = showcaseRepository.findById(showcaseId).orElse(null);
         return showcase == null
                 ? null
                 : new ArrayList<>(showcase.getItems());

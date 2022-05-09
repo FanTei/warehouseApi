@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
@@ -48,17 +49,25 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+    public User setPasswordAndDefaultRoleAndGet(User user) {
+        String defaultRole = "ROLE_USER";
+        user.setRoles(Collections.singleton(new Role(1L, defaultRole)));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        return user;
+    }
 
-        if (userFromDB != null) {
+    public boolean saveUser(User user) {
+        if (isExistsUser(user)) {
             return false;
         }
-
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user = setPasswordAndDefaultRoleAndGet(user);
         userRepository.save(user);
         return true;
+    }
+
+    public boolean isExistsUser(User user) {
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        return userFromDB != null;
     }
 
     public boolean deleteUser(Long userId) {
@@ -70,8 +79,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getUserList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
-                .setParameter("paramId", idMin).getResultList();
+        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class).setParameter("paramId", idMin).getResultList();
     }
 
     public void setRole(Long userId, Long roleId) {
@@ -81,7 +89,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public List<Role> allRoles(){
+    public List<Role> allRoles() {
         return roleRepository.findAll();
     }
 }

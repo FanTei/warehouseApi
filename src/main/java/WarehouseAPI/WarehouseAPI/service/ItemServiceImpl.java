@@ -29,12 +29,12 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item read(Long id) {
-        return itemRepository.findById(id).get();
+        return itemRepository.findById(id).orElse(null);
     }
 
     @Override
     public boolean update(Item item, Long id) {
-        Item itemToUpdate = itemRepository.findById(id).get();
+        Item itemToUpdate = itemRepository.findById(id).orElse(null);
         if (itemToUpdate != null) {
             itemToUpdate.setTitle(item.getTitle());
             itemToUpdate.setOccupiedSize(item.getOccupiedSize());
@@ -47,7 +47,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public boolean delete(Long id) {
-        Item itemToDelete = itemRepository.findById(id).get();
+        Item itemToDelete = itemRepository.findById(id).orElse(null);
         if (itemToDelete != null) {
             List<ShowcasesItem> dependItems = showcasesItemService.getShowcasesItemsByDependItem(itemToDelete);
             showcasesItemService.deleteShowcasesItemsByDependItems(dependItems);

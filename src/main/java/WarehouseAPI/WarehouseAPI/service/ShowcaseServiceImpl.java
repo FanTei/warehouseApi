@@ -30,12 +30,12 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
     @Override
     public Showcase read(Long id) {
-        return showcaseRepository.findById(id).get();
+        return showcaseRepository.findById(id).orElse(null);
     }
 
     @Override
     public boolean update(Showcase showcase, Long id) {
-        Showcase showcaseToUpdate = showcaseRepository.findById(id).get();
+        Showcase showcaseToUpdate = showcaseRepository.findById(id).orElse(null);
         if (showcaseToUpdate != null) {
             showcaseToUpdate.setItems(showcase.getItems());
             showcaseToUpdate.setTitle(showcase.getTitle());
@@ -48,7 +48,7 @@ public class ShowcaseServiceImpl implements ShowcaseService {
 
     @Override
     public boolean delete(Long id) {
-        final Showcase showcase = showcaseRepository.findById(id).get();
+        final Showcase showcase = showcaseRepository.findById(id).orElse(null);
         if (showcase != null) {
             showcaseRepository.delete(showcase);
             return true;
