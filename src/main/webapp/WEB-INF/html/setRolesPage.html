@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Set roles</title>
+    <meta charset="UTF-8"/>
+</head>
+<div>
+    <table cellspacing="10">
+        <thead>
+        <th>ID</th>
+        <th>Name</th>
+        </thead>
+        <th:block th:each="role:${roles}">
+            <tr>
+                <td th:text="${role.id}"></td>
+                <td th:text="${role.name}"></td>
+                <td>
+                    <form action="#" th:action="@{/admin/setRole}" method="post">
+                        <input type="hidden" name="roleId" th:value="${role.id}"/>
+                        <input type="hidden" name="userId" th:value="${#request.getParameter('userId')}"/>
+                        <input type="hidden" name="action" value="add"/>
+                        <button type="submit">Add</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+    <a href="/">Главная</a>
+</div>
+<body>

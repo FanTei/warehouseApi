@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create item</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <form action="#" th:action="@{/items/create}" th:object="${item}" method="post">
+        <p th:if="${#fields.hasErrors('title')}">Title cannot be empty.</p>
+        <p>Title:<input type="text" th:field="*{title}"></p>
+        <p th:if="${#fields.hasErrors('occupiedSize')}">Occupied size cannot be empty.</p>
+        <p>Occupied size:<input th:field="*{occupiedSize}"></p>
+        <p th:if="${#fields.hasErrors('price')}">Price size cannot be empty.</p>
+        <p>Price:<input type="text" th:field="*{price}"></p>
+        <button type="submit">Add</button>
+    </form>
+</div>
+<a href="/">Главная</a>
+</body>
+</html>

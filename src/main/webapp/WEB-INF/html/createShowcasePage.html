@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Showcase</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <div>
+        <form action="#" th:action="@{/showcases/create}" th:object="${showcase}" method="post">
+            <p th:if="${#fields.hasErrors('title')}">Title cannot be empty.</p>
+            <p>Title:<input type="text" th:field="*{title}"></p>
+            <p th:if="${#fields.hasErrors('size')}">Title cannot be empty.</p>
+            <p>Size:<input th:field="*{size}"></p>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+<a href="/">Главная</a>
+</body>
+</html>

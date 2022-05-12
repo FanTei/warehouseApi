@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Showcases</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<table cellspacing="10">
+    <thead>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Size</th>
+    </thead>
+    <th:block th:each="showcase:${showcases}">
+        <tr>
+            <td th:text="${showcase.id}"></td>
+            <td th:text="${showcase.title}"></td>
+            <td th:text="${showcase.size}"></td>
+            <td>
+                <form action="#" th:action="@{/showcases}" th:method="DELETE">
+                    <input name="_method" type="hidden" value="DELETE"/>
+                    <input type="hidden" name="showcaseId" th:value="${showcase.id}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/showcases/update}" method="get">
+                    <input type="hidden" name="showcaseId" th:value="${showcase.id}"/>
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td>
+                <form action="#" th:action="@{/warehouse/getItems}" method="get">
+                    <input type="hidden" name="showcaseId" th:value="${showcase.id}">
+                    <button type="submit">Items</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<h1>
+<div sec:authorize="hasRole('ADMIN')">
+<form th:action="@{/showcases/create}" method="get">
+    <button type="submit">Add</button>
+</form>
+</div>
+</h1>
+<a href="/">Главная</a>
+
+</body>

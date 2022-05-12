@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add showcase item</title>
+    <meta charset="UTF-8"/>
+</head>
+<table cellspacing="10">
+    <thead>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Size</th>
+    <th>Price</th>
+    </thead>
+    <th:block th:each="item: ${items}">
+        <tr>
+            <td th:text="${item.id}"></td>
+            <td th:text="${item.title}"></td>
+            <td th:text="${item.occupiedSize}"></td>
+            <td th:text="${item.price}"></td>
+            <td>
+                <form action="#" th:action="@{/warehouse/add}" method="post">
+                    <h> <input type="number" name="quantity" th:value="${quantity}"></h>
+                   <input type="hidden" name="itemId" th:value="${item.id}"/>
+                   <input type="hidden" name="showcaseId" th:value="${#request.getParameter('showcaseId')}">
+                    <button type="submit">Add</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<a href="/">Главная</a>
+</html>

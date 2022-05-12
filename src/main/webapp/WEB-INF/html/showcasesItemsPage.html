@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Showcases items</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<table>
+    <thead>
+    </thead>
+    <th:block th:each="showcasesItem:${showcasesItems}">
+        <tr>
+            <td th:text="${showcasesItem.id}"></td>
+            <td th:text="${showcasesItem.item}"></td>
+            <td th:text="${showcasesItem.quantity}"></td>
+            <td>
+                <form action="#" th:action="@{/warehouse}" th:method="DELETE">
+                    <input name="_method" type="hidden" value="DELETE"/>
+                    <input type="hidden" name="itemId" th:value="${showcasesItem.id}"/>
+                    <input type="hidden" name="showcaseId" th:value="${#request.getParameter('showcaseId')}"/>
+                    <input type="hidden" name="" th:value="${1}"/>
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+<form th:action="@{/warehouse/addItem}" method="get">
+    <input type="hidden" name="showcaseId" th:value="${#request.getParameter('showcaseId')}"/>
+    <button type="submit">Add</button>
+</form>
+</body>
+</html>

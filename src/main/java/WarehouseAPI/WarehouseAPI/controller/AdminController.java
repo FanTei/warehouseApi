@@ -1,4 +1,4 @@
-package WarehouseAPI.WarehouseAPI.controller.security;
+package WarehouseAPI.WarehouseAPI.controller;
 
 import WarehouseAPI.WarehouseAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,7 @@ public class AdminController {
     private UserService userService;
 
     @PostMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestParam(required = true, defaultValue = "") Long userId,
-                                        @RequestParam(required = true, defaultValue = "") String action,
-                                        Model model) {
-
+    public ResponseEntity<?> deleteUser(@RequestParam Long userId) {
         final boolean isDelete = userService.deleteUser(userId);
         return isDelete
                 ? new ResponseEntity<>(HttpStatus.OK)
@@ -26,8 +23,8 @@ public class AdminController {
     }
 
     @PostMapping("/setRole")
-    public ResponseEntity<?> setRole(@RequestParam(required = true, defaultValue = "") Long userId,
-                                     @RequestParam(required = true, defaultValue = "") Long roleId) {
+    public ResponseEntity<?> setRole(@RequestParam Long userId,
+                                     @RequestParam Long roleId) {
 
         userService.setRole(userId, roleId);
         return new ResponseEntity<>(HttpStatus.OK);

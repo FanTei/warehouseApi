@@ -1,4 +1,4 @@
-package WarehouseAPI.WarehouseAPI.controller.security;
+package WarehouseAPI.WarehouseAPI.controller;
 
 import WarehouseAPI.WarehouseAPI.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +18,20 @@ public class AdminViewController {
 
     @GetMapping("")
     public String userList(Model model) {
-        model.addAttribute("allUsers", userService.allUsers());
+        model.addAttribute("users", userService.allUsers());
         return "admin";
     }
 
     @GetMapping("/{userId}")
     public String gtUser(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("allUsers", userService.getUserList(userId));
+        model.addAttribute("users", userService.getUserList(userId));
         return "admin";
     }
 
     @GetMapping("/setRole")
     public String setRole(@RequestParam(required = true, defaultValue = "") Long userId,
                           Model model) {
-        model.addAttribute("allRoles", userService.allRoles());
+        model.addAttribute("roles", userService.allRoles());
         return "setRolesPage";
     }
 }

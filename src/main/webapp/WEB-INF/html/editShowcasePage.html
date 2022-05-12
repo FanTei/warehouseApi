@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Showcase</title>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div>
+    <div>
+        <form action="#" th:action="@{/showcases/update}" th:object="${showcase}" method="post">
+            <p th:if="${#fields.hasErrors('title')}">Title cannot be empty.</p>
+            <p>Title:<input type="text" th:field="*{title}"></p>
+            <p th:if="${#fields.hasErrors('size')}">Title cannot be empty.</p>
+            <p>Occupied size:<input th:field="*{size}"></p>
+            <input type="hidden" name = "showcaseId" th:value="${#request.getParameter('showcaseId')}"/>
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+</div>
+<a href="/">Главная</a>
+</body>
+</html>
