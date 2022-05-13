@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class DataLoader {
     private RoleRepository roleRepository;
     @Autowired
-
     public DataLoader(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
         LoadRoles();
