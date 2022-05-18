@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -63,11 +61,10 @@ public class ItemController {
     @PostMapping("/update")
     public String update(@RequestParam Long itemId,
                          @Valid Item item,
-                         BindingResult bindingResult,
-                         Model model) {
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "editItemPage";
-        final boolean update = itemService.update(item, itemId);
+        itemService.update(item, itemId);
         return "redirect:/";
     }
 
@@ -78,6 +75,6 @@ public class ItemController {
         headers.add("Location", "http://localhost:9090/");
         return isDelete
                 ? new ResponseEntity<>(null, headers, HttpStatus.FOUND)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

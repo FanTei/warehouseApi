@@ -12,10 +12,13 @@ import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService {
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private ShowcasesItemService showcasesItemService;
+    private final ItemRepository itemRepository;
+    private final ShowcasesItemService showcasesItemService;
+
+    public ItemServiceImpl(ItemRepository itemRepository, ShowcasesItemService showcasesItemService) {
+        this.itemRepository = itemRepository;
+        this.showcasesItemService = showcasesItemService;
+    }
 
     @Override
     public void create(Item item) {
@@ -33,16 +36,14 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public boolean update(Item item, Long id) {
+    public void update(Item item, Long id) {
         Item itemToUpdate = itemRepository.findById(id).orElse(null);
         if (itemToUpdate != null) {
             itemToUpdate.setTitle(item.getTitle());
             itemToUpdate.setOccupiedSize(item.getOccupiedSize());
             itemToUpdate.setPrice(item.getPrice());
             itemRepository.save(itemToUpdate);
-            return true;
         }
-        return false;
     }
 
     @Override
@@ -51,7 +52,6 @@ public class ItemServiceImpl implements ItemService {
         if (itemToDelete != null) {
             List<ShowcasesItem> dependItems = showcasesItemService.getShowcasesItemsByDependItem(itemToDelete);
             showcasesItemService.deleteShowcasesItemsByDependItems(dependItems);
-
             itemRepository.delete(itemToDelete);
             return true;
         }

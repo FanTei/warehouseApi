@@ -13,10 +13,11 @@ import java.util.List;
 
 @Service
 public class ShowcasesItemServiceImpl implements ShowcasesItemService {
-    @Autowired
-    ShowcaseItemRepository showcaseItemRepository;
+    private final ShowcaseItemRepository showcaseItemRepository;
 
-
+    public ShowcasesItemServiceImpl(ShowcaseItemRepository showcaseItemRepository) {
+        this.showcaseItemRepository = showcaseItemRepository;
+    }
     @Override
     public void deleteShowcasesItemsByDependItems(List<ShowcasesItem> showcasesItems) {
         showcaseItemRepository.deleteAll(showcasesItems);

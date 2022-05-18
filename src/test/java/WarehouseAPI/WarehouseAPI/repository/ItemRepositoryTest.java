@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Optional;
+
 @DisplayName("Unit-level testing for ItemRepository")
 @ActiveProfiles("test")
 @DataJpaTest
@@ -31,5 +32,14 @@ public class ItemRepositoryTest {
         Optional<Item> saved = itemRepository.findById(item.getId());
         Assertions.assertTrue(saved.isPresent());
         Assertions.assertEquals(item, saved.get());
+    }
+
+    @Sql("/sql/items.sql")
+    @Test
+    public void shouldProperlyFindItemById() {
+        long id = 1L;
+        Optional<Item> find = itemRepository.findById(id);
+        Assertions.assertTrue(find.isPresent());
+        Assertions.assertEquals(find.get().getTitle(), "1");
     }
 }

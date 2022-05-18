@@ -1,17 +1,31 @@
 package WarehouseAPI.WarehouseAPI.service;
 
-import WarehouseAPI.WarehouseAPI.repository.ItemRepository;
-import org.junit.jupiter.api.BeforeEach;
+import WarehouseAPI.WarehouseAPI.entity.Item;
+
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.jdbc.Sql;
 
 @DisplayName("Unit-level testing for ItemService")
 public class ItemServiceTest {
-    @Autowired
-    ItemService itemService;
+    private final ItemServiceImpl itemService = Mockito.mock(ItemServiceImpl.class);
 
-    @Sql("/sql/items.sql")
+    @Test
+    public void shouldProperlyUpdateItem() {
+        Item item = new Item();
+        item.setTitle("update");
+        item.setPrice(123);
+        item.setOccupiedSize(123);
+        item.setId(1L);
+        itemService.update(item, 0L);
+        Mockito.verify(itemService).update(item, 0L);
+    }
 
+    @Test
+    public void shouldProperlyDeleteItem() {
+        long id = 0L;
+        itemService.delete(id);
+        Mockito.verify(itemService).delete(id);
+    }
 }

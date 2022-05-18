@@ -4,7 +4,6 @@ import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
 import WarehouseAPI.WarehouseAPI.service.ItemService;
 import WarehouseAPI.WarehouseAPI.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +42,7 @@ public class WarehouseController {
         final boolean isAdded = warehouseService.addItemOnShowcase(showcaseId, itemId, quantity);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "http://localhost:9090/");
-        return isAdded ? new ResponseEntity<>(null, headers, HttpStatus.FOUND) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return isAdded ? new ResponseEntity<>(null, headers, HttpStatus.FOUND) : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
     @DeleteMapping()
@@ -52,6 +51,6 @@ public class WarehouseController {
         final boolean isDeleted = warehouseService.removeItemFromShowcase(showcaseId, itemId);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "http://localhost:9090/");
-        return isDeleted ? new ResponseEntity<>(null, headers, HttpStatus.FOUND) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return isDeleted ? new ResponseEntity<>(null, headers, HttpStatus.FOUND) : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 }

@@ -1,8 +1,6 @@
 package WarehouseAPI.WarehouseAPI.repository;
 
-import WarehouseAPI.WarehouseAPI.entity.Item;
 import WarehouseAPI.WarehouseAPI.entity.Showcase;
-import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.util.List;
 import java.util.Optional;
 
 @DisplayName("Unit-level testing for ShowcaseRepository")
@@ -31,9 +28,17 @@ public class ShowcaseRepositoryTest {
         showcase.setSize(0);
         showcase.setId(1L);
         showcaseRepository.save(showcase);
-        List<Showcase> showcases= showcaseRepository.findAll();
         Optional<Showcase> saved = showcaseRepository.findById(showcase.getId());
         Assertions.assertTrue(saved.isPresent());
         Assertions.assertEquals(showcase, saved.get());
+    }
+
+    @Sql("/sql/showcases.sql")
+    @Test
+    public void shouldProperlyFindShowcase(){
+        long id = 1L;
+        Optional<Showcase> find = showcaseRepository.findById(id);
+        Assertions.assertTrue(find.isPresent());
+        Assertions.assertEquals(find.get().getTitle(),"1");
     }
 }

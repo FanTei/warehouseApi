@@ -12,7 +12,7 @@ public interface ItemService {
 
     Item read(Long id);
 
-    boolean update(Item item, Long id);
+    void update(Item item, Long id);
 
     boolean delete(Long id);
 }

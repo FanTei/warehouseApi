@@ -34,4 +34,12 @@ public class UserRepositoryTest {
         User saved = userRepository.findByUsername(user.getUsername());
         Assertions.assertEquals(user, saved);
     }
+
+    @Sql("/sql/users.sql")
+    @Test
+    public void shouldProperlyFindUserByUsername() {
+        String username = "1";
+        User find = userRepository.findByUsername(username);
+        Assertions.assertEquals(find.getUsername(), "1");
+    }
 }

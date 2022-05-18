@@ -13,7 +13,7 @@ import java.util.List;
 public class ShowcaseServiceImpl implements ShowcaseService {
     private final ShowcaseRepository showcaseRepository;
 
-    @Autowired
+
     public ShowcaseServiceImpl(ShowcaseRepository showcaseRepository) {
         this.showcaseRepository = showcaseRepository;
     }

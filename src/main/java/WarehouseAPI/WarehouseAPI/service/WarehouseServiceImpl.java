@@ -1,12 +1,11 @@
 package WarehouseAPI.WarehouseAPI.service;
 
-import WarehouseAPI.WarehouseAPI.repository.ItemRepository;
-import WarehouseAPI.WarehouseAPI.repository.ShowcaseItemRepository;
-import WarehouseAPI.WarehouseAPI.repository.ShowcaseRepository;
 import WarehouseAPI.WarehouseAPI.entity.Item;
 import WarehouseAPI.WarehouseAPI.entity.Showcase;
 import WarehouseAPI.WarehouseAPI.entity.ShowcasesItem;
-import org.springframework.beans.factory.annotation.Autowired;
+import WarehouseAPI.WarehouseAPI.repository.ItemRepository;
+import WarehouseAPI.WarehouseAPI.repository.ShowcaseItemRepository;
+import WarehouseAPI.WarehouseAPI.repository.ShowcaseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,16 +13,16 @@ import java.util.List;
 
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
-    private ShowcaseRepository showcaseRepository;
-    private ItemRepository itemRepository;
-    private ShowcaseItemRepository showcaseItemRepository;
+    private final ShowcaseRepository showcaseRepository;
+    private final ItemRepository itemRepository;
+    private final ShowcaseItemRepository showcaseItemRepository;
 
-    @Autowired
     public WarehouseServiceImpl(ShowcaseRepository showcaseRepository, ItemRepository itemRepository, ShowcaseItemRepository showcaseItemRepository) {
         this.showcaseRepository = showcaseRepository;
         this.itemRepository = itemRepository;
         this.showcaseItemRepository = showcaseItemRepository;
     }
+
 
     @Override
     public boolean addItemOnShowcase(Long showcaseId, Long itemId, int quantity) {
