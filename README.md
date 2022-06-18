@@ -16,8 +16,6 @@ A tutorial project written with Spring. The main goal is to make a store warehou
 
 ## Launch
 
-* To start project in development purposes:
-
 ```sh
 git clone https://github.com/FanTei/warehouseApi.git project
 cd project
