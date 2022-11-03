@@ -1,7 +1,3 @@
-## Description
-
-A tutorial project written with Spring. The main goal is to make a store warehouse
-
 ## Java version
 
 * Java 17
